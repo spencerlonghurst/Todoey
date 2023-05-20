@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
     
-    let itemArray = ["find Mike", "Buy Eggos", "Destroy Demogorgon"]
+    var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +42,6 @@ class TodoListViewController: UITableViewController {
     }
 
     //MARK: - TableView Delegate Methods
-    //TODO: -
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 //        print(itemArray[indexPath.row])
         
@@ -59,5 +58,36 @@ class TodoListViewController: UITableViewController {
     }
     
 
+    //MARK: - Add New Items
+    
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+        
+        // ↓ ↓ ↓ The UIAlertController is the little box that pops up like an Apple alert
+        let alert = UIAlertController(title: "Add New Todoy Item", message: "", preferredStyle: .alert)
+        
+        // ↓ ↓ ↓ The UIAlertAction is what the button says when the alert pops up and is the code to determine what happens after that button is tapped
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //what will happen once the user taps the "Add Item" button
+//            print(textField.text)
+            
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+        }
+        
+        // ↓ ↓ ↓ You need to addTextField to the alert otherwise it is just going to be an empty alert/just a message
+        alert.addTextField { alertTextField in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+        
+        // ↓ ↓ ↓ The action has to be added to the alert
+        alert.addAction(action)
+        
+        // ↓ ↓ ↓ The present will show the alert. The "alert" is the UIAlertController and it is the box to be shown to the user
+        present(alert, animated: true, completion: nil)
+        
+    }
 }
 
