@@ -11,9 +11,17 @@ import UIKit
 class TodoListViewController: UITableViewController {
     
     var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
+    
+    // ↓ ↓ ↓ Need to initialize the UserDefaults
+    let defaults = UserDefaults.standard
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // ↓ ↓ ↓ This tells the app to grab the data from the Key TodoListArray when the user adds a new row
+        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
+            itemArray = items
+        }
         
         // ↓ ↓ ↓ This is to get around the bug of styling the top navigaton bar ↓ ↓ ↓
         let appearance = UINavigationBarAppearance()
@@ -73,6 +81,10 @@ class TodoListViewController: UITableViewController {
 //            print(textField.text)
             
             self.itemArray.append(textField.text!)
+            
+            // ↓ ↓ ↓ This sets the array as a value to the TodoListArray Key in the plist
+            self.defaults.set(self.itemArray, forKey: "TodoListArray")
+            
             self.tableView.reloadData()
         }
         
