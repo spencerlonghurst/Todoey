@@ -35,9 +35,9 @@ class TodoListViewController: UITableViewController {
         itemArray.append(newItem3)
         
         // ↓ ↓ ↓ This tells the app to grab the data from the Key TodoListArray when the user adds a new row
-//        if let items = defaults.array(forKey: "TodoListArray") as? [String] {
-//            itemArray = items
-//        }
+        if let items = defaults.array(forKey: "TodoListArray") as? [Item] {
+            itemArray = items
+        }
         
         // ↓ ↓ ↓ This is to get around the bug of styling the top navigaton bar ↓ ↓ ↓
         let appearance = UINavigationBarAppearance()
